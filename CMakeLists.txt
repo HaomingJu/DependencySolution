@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 
 # 工程名称
-PROJECT(TODO)
+PROJECT(Trunk)
 
 # 设定编译类型: Release / Debug
 SET(BUILD_TYPE Release)

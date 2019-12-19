@@ -1,0 +1,21 @@
+# Android, Linux, Windows, iOS
+OS: Linux
+# armv7, x86, x86_64 ...
+Arch: x86_64
+
+
+# Conan - Artifactory
+JFrogURL: http://192.168.3.186:8081/artifactory/api/conan/conan-local
+UserName: haoming
+Password: juhaoming1994115
+
+# 依赖的包
+DepsOn1: gflag/2.2.2@Common/Trunk:Shared
+#DepsOn2: glog/0.4.0@Common/Trunk:Shared
+
+# 本工程的安装目录
+Install: test/0.0.1@Vison/Trunk:Shared
+LibType: Shared
+Compiler: gcc
+CompilerVersion: 5.4
+BuildType: Release
