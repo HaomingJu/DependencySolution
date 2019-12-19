@@ -28,11 +28,12 @@ def GetDeps(src_dic):
             key = info_list[0].split("/")[0]
             version_value = info_list[1]
             shared_value = info_list[2]
+            buildtype_value = info_list[3]
             if shared_value.lower() == "shared":
                 shared_value = "True"
             else:
                 shared_value = "False"
-            deps_dic[key] = [version_value, shared_value]
+            deps_dic[key] = [version_value, shared_value, buildtype_value]
     return deps_dic #{libname: [version, shared]}
 
 
@@ -55,11 +56,14 @@ def WriteProfile(src_dic, dst_file):
         c = lib_name + ":compiler";
         cv = lib_name + ":compiler.version"
         s = lib_name + ":shared"
+        b = lib_name + ":build_type"
         version = deps_dic[lib_name][0]
         shared = deps_dic[lib_name][1]
+        buildtype = deps_dic[lib_name][2]
 
         config.set("settings", c, src_dic["Compiler"])
         config.set("settings", cv, version)
+        config.set("settings", b, buildtype)
         config.set("options", s, shared)
 
     with open(dst_file, 'w') as profile:
