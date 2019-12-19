@@ -10,8 +10,9 @@ UserName: haoming
 Password: juhaoming1994115
 
 # 依赖的包
-DepsOn1: gflag/2.2.2@Common/Trunk:Shared
-#DepsOn2: glog/0.4.0@Common/Trunk:Shared
+# DepsOnn: libname/version@Author/Channel:SharedorStatic
+DepsOn1: gflag/2.2.2@Common/Trunk:5:Shared
+#DepsOn2: glog/0.4.0@Common/Trunk:6:Shared
 
 # 本工程的安装目录
 Install: test/0.0.1@Vison/Trunk:Shared

@@ -11,7 +11,31 @@ def ReadProperty(file_path):
             if line.__len__() and line[0] != '#':
                 key_value = line.split(": ")
                 ProSet[key_value[0]] = key_value[1]
+
+    if ProSet["LibType"].lower() == "shared":
+        ProSet["LibType"] = "True"
+    else:
+        ProSet["LibType"] = "False"
+
+
     return ProSet
+
+def GetDeps(src_dic):
+    deps_dic = {}
+    for key in src_dic.keys():
+        if "DepsOn" in key:
+            info_list = src_dic[key].split(":")
+            key = info_list[0].split("/")[0]
+            version_value = info_list[1]
+            shared_value = info_list[2]
+            if shared_value.lower() == "shared":
+                shared_value = "True"
+            else:
+                shared_value = "False"
+            deps_dic[key] = [version_value, shared_value]
+    return deps_dic #{libname: [version, shared]}
+
+
 
 def WriteProfile(src_dic, dst_file):
     config = ConfigParser.ConfigParser()
@@ -24,11 +48,19 @@ def WriteProfile(src_dic, dst_file):
     config.set("settings", "compiler.libcxx", "libstdc++")
     config.set("settings", "build_type", src_dic["BuildType"])
 
-    if src_dic["LibType"] == "Shared" or src_dic["LibType"] == "shared":
-        config.set("options", "*:shared", "True")
-    else:
-        config.set("options", "*:shared", "False")
+    config.set("options", "*:shared", src_dic["LibType"])
 
+    deps_dic = GetDeps(src_dic)
+    for lib_name in deps_dic.keys():
+        c = lib_name + ":compiler";
+        cv = lib_name + ":compiler.version"
+        s = lib_name + ":shared"
+        version = deps_dic[lib_name][0]
+        shared = deps_dic[lib_name][1]
+
+        config.set("settings", c, src_dic["Compiler"])
+        config.set("settings", cv, version)
+        config.set("options", s, shared)
 
     with open(dst_file, 'w') as profile:
         config.write(profile)
