@@ -1,0 +1,15 @@
+# Conan 依赖
+INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+CONAN_BASIC_SETUP()
+
+# ROS 环境
+## ROS message path
+ADD_SUBDIRECTORY(TODO) 
+FIND_PACKAGE(catkin REQUIRED COMPONENTS
+    #TODO: other deps package
+    roscpp
+    std_msgs
+    )
+INCLUDE_DIRECTORIES(${catkin_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${CATKIN_DEVEL_PREFIX}/include)
+catkin_package()
