@@ -13,6 +13,9 @@
     compiler.libcxx=libstdc++
 
 [options]
+    *:shared=True
+    *:fpic=True
+
 
 [build_requires]
     # TODO: 指定该项目所依赖包路径. 诸如

@@ -10,6 +10,8 @@ class GlogConan(ConanFile):
     license = "MIT"
     topics = None
     settings = "os", "compiler", "build_type", "arch"
+    options = {"shared": [True, False]}
+    default_options = {"shared": False}
     exports_sources = name + "/*"  # XXX: The upload path
 
     def package(self):
