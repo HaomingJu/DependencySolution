@@ -11,7 +11,7 @@ INCLUDE_DIRECTORIES(${CATKIN_DEVEL_PREFIX}/include)
 catkin_package()
 
 
-EXECUTE_PROCESS(COMMAND python ../conan_cmd.py)
+EXECUTE_PROCESS(COMMAND python ../.conan_cmd.py)
 EXECUTE_PROCESS(COMMAND conan install ./.conanfile -pr=./.profile)
 
 # Conan 依赖

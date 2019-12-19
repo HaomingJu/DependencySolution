@@ -36,6 +36,16 @@ def GetDeps(src_dic):
             deps_dic[key] = [version_value, shared_value, buildtype_value]
     return deps_dic #{libname: [version, shared]}
 
+def GetDepsName(src_dic):
+    deps_list = []
+    for key in src_dic.keys():
+        if "depson" in key.lower():
+            info_list = src_dic[key].split(":")
+            deps_name = info_list[0]
+            deps_list.append(deps_name)
+    return deps_list
+
+
 
 
 def WriteProfile(src_dic, dst_file):
@@ -66,8 +76,12 @@ def WriteProfile(src_dic, dst_file):
         config.set("settings", b, buildtype)
         config.set("options", s, shared)
 
+
     with open(dst_file, 'w') as profile:
         config.write(profile)
+        profile.write("\n\n[build_requires]\n")
+        for deps_name in GetDepsName(src_dic):
+            profile.write(deps_name + "\n")
 
 
 
