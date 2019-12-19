@@ -15,6 +15,12 @@ EXECUTE_PROCESS(COMMAND python ../conan_cmd.py)
 EXECUTE_PROCESS(COMMAND conan install ./.conanfile -pr=./.profile)
 
 # Conan 依赖
-INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-CONAN_BASIC_SETUP()
+if (EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+    INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    CONAN_BASIC_SETUP()
+else()
+    message(FATAL_ERROR "The file conanbuildinfo.cmake no exists")
+endif()
+
+
 
