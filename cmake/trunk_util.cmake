@@ -11,8 +11,10 @@ INCLUDE_DIRECTORIES(${CATKIN_DEVEL_PREFIX}/include)
 catkin_package()
 
 
-EXECUTE_PROCESS(COMMAND python ../.conan_cmd.py)
+EXECUTE_PROCESS(COMMAND python ../.conan_cmd.py OUTPUT_VARIABLE LIBINSTALLINFO)
 EXECUTE_PROCESS(COMMAND conan install ./.conanfile -pr=./.profile)
+STRING(REPLACE "\n" "" LIBINSTALLINFO ${LIBINSTALLINFO})
+MESSAGE("Install:${LIBINSTALLINFO}")
 
 # Conan 依赖
 if (EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
@@ -22,5 +24,6 @@ else()
     message(FATAL_ERROR "The file conanbuildinfo.cmake no exists")
 endif()
 
-
-
+ADD_CUSTOM_TARGET(create
+    COMMAND conan create ../ ${LIBINSTALLINFO} --profile .profile
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})

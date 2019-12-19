@@ -96,8 +96,18 @@ def WriteConanfile(src_dic, dst_file):
         profile.write("\n\n[generators]\ncmake\n")
 
 
+# g_proset = ReadProperty("../build.property")
+# g_data = g_proset["Install"].split("@")
+# g_lib_name = g_data[0].split("/")[0]
+# g_lib_version = g_data[0].split("/")[1]
+# g_author = g_data[1].split("/")[0]
+# g_channel = g_data[1].split("/")[1]
+
 
 if __name__ == "__main__":
     proset = ReadProperty("../build.property")
     WriteProfile(proset, "./.profile")
     WriteConanfile(proset, "./.conanfile")
+
+    install_info = proset["Install"]
+    print install_info
