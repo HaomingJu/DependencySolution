@@ -46,3 +46,7 @@ ADD_CUSTOM_TARGET(graph
     COMMAND conan info ../ --graph=file.html
     COMMAND x-www-browser ./file.html
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+ADD_CUSTOM_TARGET(search
+    COMMAND conan search
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
