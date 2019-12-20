@@ -27,3 +27,7 @@ endif()
 ADD_CUSTOM_TARGET(create
     COMMAND conan create ../ ${LIBINSTALLINFO} --profile .profile
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+ADD_CUSTOM_TARGET(upload
+    COMMAND conan upload ${LIBINSTALLINFO} --all
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
