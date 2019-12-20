@@ -24,6 +24,12 @@ else()
     message(FATAL_ERROR "The file conanbuildinfo.cmake no exists")
 endif()
 
+FOREACH(CONAN_SUBLIB_DIRS ${CONAN_LIB_DIRS})
+    INSTALL(DIRECTORY ${CONAN_SUBLIB_DIRS}/
+        DESTINATION lib)
+ENDFOREACH(CONAN_SUBLIB_DIRS)
+
+
 ADD_CUSTOM_TARGET(create
     COMMAND conan create ../ ${LIBINSTALLINFO} --profile .profile
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
@@ -40,4 +46,3 @@ ADD_CUSTOM_TARGET(graph
     COMMAND conan info ../ --graph=file.html
     COMMAND x-www-browser ./file.html
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
- 

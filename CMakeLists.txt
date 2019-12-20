@@ -14,6 +14,7 @@ MESSAGE("ARCH: ${ARCH}")
 # Uncomment this line, when "[abi:cxx11]" error happen
 #ADD_DEFINITIONS(-D_GLIBCXX_USE_CXX11_ABI=0)
 
+SET(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/output)
 # 引入非常变动脚本
 #SET(CMAKE_CXX_COMPILER_VERSION 6)
 INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/trunk_util.cmake)
