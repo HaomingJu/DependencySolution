@@ -31,3 +31,13 @@ ADD_CUSTOM_TARGET(create
 ADD_CUSTOM_TARGET(upload
     COMMAND conan upload ${LIBINSTALLINFO} --all
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+ADD_CUSTOM_TARGET(remove
+    COMMAND conan remove ${LIBINSTALLINFO}
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+ADD_CUSTOM_TARGET(graph
+    COMMAND conan info ../ --graph=file.html
+    COMMAND x-www-browser ./file.html
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+ 
