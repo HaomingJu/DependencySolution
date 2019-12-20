@@ -9,13 +9,15 @@ UserName: haoming
 Password: juhaoming1994115
 
 # 依赖的包
-# DepsOnn: libname/version@Author/Channel:SharedorStatic
-DepsOn1: gflag/2.2.2@Common/Trunk:6:Shared:Release
-DepsOn2: glog/0.4.0@Common/Trunk:5.4:Static:Release
+# DepsOnn: [Install]:[BuildType]:[LibType]:[Compiler]-[CompilerVersion]
+#DepsOn1:    gflag/2.2.2@Vison:Debug:Static:gcc-5.4
 
 # 本工程的安装目录
-Install: test/0.0.1@Vison/Trunk
-LibType: Shared
+Install: glog/0.4.1@Vison
+LibType: Static
+BuildType: Debug
 Compiler: gcc
 CompilerVersion: 5.4
-BuildType: Release
+
+
+
