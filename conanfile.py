@@ -12,10 +12,10 @@ class GlogConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = {"shared": False}
-    exports_sources = "output/*"
+    exports_sources = "package/*"
 
     def package(self):
-        self.copy("*", src="output")
+        self.copy("*", src="package")
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
