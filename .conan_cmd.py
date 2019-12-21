@@ -2,6 +2,8 @@ import os
 import sys
 import ConfigParser
 from conans import tools
+from conans.client.conan_api import ConanAPIV1
+
 
 
 compiler_version = "5"
@@ -109,17 +111,21 @@ def WriteConanfile(src_dic, dst_file, conanfile_py):
 
     tools.replace_in_file(conanfile_py, "requires = \"\"", "requires = " + str(deps_list))
 
+def Init(proset):
+    conan_remote_url = proset["JFrogURL"].split()[0]
+    conan_uname = proset["UserName"].split()[0]
+    conan_pwd = proset["Password"].split()[0]
 
-# g_proset = ReadProperty("../build.property")
-# g_data = g_proset["Install"].split("@")
-# g_lib_name = g_data[0].split("/")[0]
-# g_lib_version = g_data[0].split("/")[1]
-# g_author = g_data[1].split("/")[0]
-# g_channel = g_data[1].split("/")[1]
+    try:
+        ConanAPIV1().remote_add("JFrogURL", conan_remote_url)
+    except Exception as e:
+        # print "The JFrogURL has been added"
+        pass
 
 
 if __name__ == "__main__":
     proset = ReadProperty("../build.property")
+    Init(proset)
     WriteProfile(proset, "./.profile")
     WriteConanfile(proset, "./.conanfile", "./conanfile.py")
 
