@@ -11,8 +11,8 @@ INCLUDE_DIRECTORIES(${CATKIN_DEVEL_PREFIX}/include)
 catkin_package()
 
 
-EXECUTE_PROCESS(COMMAND cp ../.conanfile.py ./conanfile.py)
-EXECUTE_PROCESS(COMMAND python ../.conan_cmd.py OUTPUT_VARIABLE LIBINSTALLINFO)
+EXECUTE_PROCESS(COMMAND cp ../conan/conanfile.py ./conanfile.py)
+EXECUTE_PROCESS(COMMAND python ../conan/conan_cmd.py OUTPUT_VARIABLE LIBINSTALLINFO)
 EXECUTE_PROCESS(COMMAND conan install ./.conanfile -pr=./.profile)
 
 STRING(REPLACE "\n" "" LIBINSTALLINFO ${LIBINSTALLINFO})
@@ -45,7 +45,7 @@ ADD_CUSTOM_TARGET(remove
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 
 ADD_CUSTOM_TARGET(graph
-    COMMAND conan info ../ --graph=file.html
+    COMMAND conan info ./ --graph=file.html
     COMMAND x-www-browser ./file.html
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 
