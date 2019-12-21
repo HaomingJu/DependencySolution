@@ -12,7 +12,8 @@ class GlogConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = {"shared": False}
-    exports_sources = "package/*"
+    exports_sources = "../*"
+    requires = ""
 
     def package(self):
         self.copy("*", src="package")

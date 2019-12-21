@@ -11,8 +11,11 @@ INCLUDE_DIRECTORIES(${CATKIN_DEVEL_PREFIX}/include)
 catkin_package()
 
 
+EXECUTE_PROCESS(COMMAND cp ../conanfile.py ./)
 EXECUTE_PROCESS(COMMAND python ../.conan_cmd.py OUTPUT_VARIABLE LIBINSTALLINFO)
 EXECUTE_PROCESS(COMMAND conan install ./.conanfile -pr=./.profile)
+EXECUTE_PROCESS(COMMAND ln -s ../package .)
+
 STRING(REPLACE "\n" "" LIBINSTALLINFO ${LIBINSTALLINFO})
 MESSAGE("Install:${LIBINSTALLINFO}")
 
@@ -31,7 +34,7 @@ ENDFOREACH(CONAN_SUBLIB_DIRS)
 
 
 ADD_CUSTOM_TARGET(create
-    COMMAND conan create ../ ${LIBINSTALLINFO} --profile .profile
+    COMMAND conan create ./ ${LIBINSTALLINFO} --profile .profile
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 
 ADD_CUSTOM_TARGET(upload

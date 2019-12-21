@@ -1,6 +1,8 @@
 import os
 import sys
 import ConfigParser
+from conans import tools
+
 
 compiler_version = "5"
 
@@ -52,7 +54,7 @@ def GetDepsName(src_dic):
                     src_dic["OS"] + "-" +\
                     src_dic["Arch"] + "-" +\
                     raw_info[3]
-            deps_list.append(w_line)
+            deps_list.append(w_line.strip())
     return deps_list
 
 
@@ -96,14 +98,16 @@ def WriteProfile(src_dic, dst_file):
 
 
 
-def WriteConanfile(src_dic, dst_file):
+def WriteConanfile(src_dic, dst_file, conanfile_py):
+    deps_list = GetDepsName(src_dic)
     with open(dst_file, 'w') as profile:
         profile.write("[requires]\n")
-        deps_list = GetDepsName(src_dic)
         for deps in deps_list:
             profile.write(deps)
             profile.write("\n")
         profile.write("\n\n[generators]\ncmake\n")
+
+    tools.replace_in_file(conanfile_py, "requires = \"\"", "requires = " + str(deps_list))
 
 
 # g_proset = ReadProperty("../build.property")
@@ -117,7 +121,7 @@ def WriteConanfile(src_dic, dst_file):
 if __name__ == "__main__":
     proset = ReadProperty("../build.property")
     WriteProfile(proset, "./.profile")
-    WriteConanfile(proset, "./.conanfile")
+    WriteConanfile(proset, "./.conanfile", "./conanfile.py")
 
     install_info = proset["Install"] + "/" \
             + proset["BuildType"] + "-" \
