@@ -38,3 +38,11 @@ ln -s ./output/package ./package
 make create
 make upload
 ```
+
+```
+Uploading to remote 'JFrogURL':
+Uploading trt/1.0.0@Vision/Debug-Static-Linux-x86_64-gcc-5.4 to remote 'JFrogURL'
+Uploaded conan recipe 'trt/1.0.0@Vision/Debug-Static-Linux-x86_64-gcc-5.4' to 'JFrogURL': http://192.168.3.186:8081/artifactory/api/conan/conan-local
+Uploading package 1/1: 39b03c85bed0a1cb56951913b822c680576d0a4a to 'JFrogURL'
+Built target upload
+```
