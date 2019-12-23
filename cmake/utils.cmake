@@ -14,7 +14,7 @@ endif()
 
 EXECUTE_PROCESS(COMMAND cp ../conan/conanfile.py ./conanfile.py)
 EXECUTE_PROCESS(COMMAND python ../conan/conan_cmd.py OUTPUT_VARIABLE LIBINSTALLINFO)
-EXECUTE_PROCESS(COMMAND conan install ./.conanfile -pr=./.profile)
+EXECUTE_PROCESS(COMMAND conan install ./.conanfile -pr=./.profile -r JFrogURL)
 
 STRING(REPLACE "\n" "" LIBINSTALLINFO ${LIBINSTALLINFO})
 MESSAGE("Install:${LIBINSTALLINFO}")
