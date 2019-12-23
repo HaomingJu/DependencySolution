@@ -1,14 +1,15 @@
 # ROS 环境
 ## ROS message path
-#ADD_SUBDIRECTORY(TODO)
-FIND_PACKAGE(catkin REQUIRED COMPONENTS
-    #TODO: other deps package
-    roscpp
-    std_msgs)
-
-INCLUDE_DIRECTORIES(${catkin_INCLUDE_DIRS})
-INCLUDE_DIRECTORIES(${CATKIN_DEVEL_PREFIX}/include)
-catkin_package()
+if(WITH_ROS)
+    #ADD_SUBDIRECTORY(TODO: include message define file folder)
+    FIND_PACKAGE(catkin REQUIRED COMPONENTS
+        #TODO: other deps package
+        roscpp
+        std_msgs)
+    INCLUDE_DIRECTORIES(${catkin_INCLUDE_DIRS})
+    INCLUDE_DIRECTORIES(${CATKIN_DEVEL_PREFIX}/include)
+    catkin_package()
+endif()
 
 
 EXECUTE_PROCESS(COMMAND cp ../conan/conanfile.py ./conanfile.py)
