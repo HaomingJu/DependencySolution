@@ -10,12 +10,10 @@ Password: juhaoming1994115
 
 # 依赖的包
 # DepsOnn: [Install]:[BuildType]:[LibType]:[Compiler]-[CompilerVersion]
-#DepsOn1:    CC/0.4.1@Vison:Debug:Static:gcc-5.4
-#DepsOn1:    t5/0.4.2@Vison:Debug:Static:gcc-5.4
-#DepsOn2:    t6/0.4.2@Vison:Debug:Static:gcc-5.4
+DepsOn1:    glog/0.4.0@Vision:Debug:Static:gcc-5.4
 
 # 本工程的安装目录
-Install: t7/0.4.2@Vison
+Install: trt/1.0.0@Vision
 LibType: Static
 BuildType: Debug
 Compiler: gcc
