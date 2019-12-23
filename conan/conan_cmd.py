@@ -111,7 +111,7 @@ def WriteConanfile(src_dic, dst_file, conanfile_py):
 
     tools.replace_in_file(conanfile_py, "requires = \"\"", "requires = " + str(deps_list))
 
-def Init(proset):
+def InitConanRemote(proset):
     conan_remote_url = proset["JFrogURL"].split()[0]
     conan_uname = proset["UserName"].split()[0]
     conan_pwd = proset["Password"].split()[0]
@@ -122,10 +122,18 @@ def Init(proset):
         # print "The JFrogURL has been added"
         pass
 
+    try:
+        ConanAPIV1().users_clean()
+        ConanAPIV1().user_set(conan_uname)
+        ConanAPIV1().authenticate(conan_uname, conan_pwd, "JFrogURL")
+    except Exception as e:
+        pass
+
+
 
 if __name__ == "__main__":
     proset = ReadProperty("../build.property")
-    Init(proset)
+    InitConanRemote(proset)
     WriteProfile(proset, "./.profile")
     WriteConanfile(proset, "./.conanfile", "./conanfile.py")
 
