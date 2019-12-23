@@ -54,6 +54,9 @@ MESSAGE("WITH_ROS: ${WITH_ROS}")
 默认为不包含 `OFF` 状态, 如果需要 `ROS` 环境请置为 `ON`
 
 **4.2 配置远程仓库地址以及用户名密码**
+将 `build.property.template` 复制为 `build.property`
+
+所有敏感修改均在 `build.property` 中进行, 且不进行Git追踪
 
 ```
 file: build.property
