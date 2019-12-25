@@ -47,6 +47,7 @@ def GetDeps(src_dic):
 
 def GetDepsName(src_dic):
     deps_list = []
+    general_list = []
     for key in src_dic.keys():
         if "depson" in key.lower():
             raw_info = src_dic[key].split(":")
@@ -57,7 +58,12 @@ def GetDepsName(src_dic):
                     src_dic["Arch"] + "-" +\
                     raw_info[3]
             deps_list.append(w_line.strip())
-    return deps_list
+        elif "general" in key.lower():
+            w_line = src_dic[key].replace(":", "/")
+            general_list.append(w_line.strip())
+        else:
+            pass
+    return deps_list, general_list
 
 
 
@@ -95,21 +101,28 @@ def WriteProfile(src_dic, dst_file):
     with open(dst_file, 'w') as profile:
         config.write(profile)
         profile.write("\n\n[build_requires]\n")
-        for deps_name in GetDepsName(src_dic):
+        deps_list, general_list = GetDepsName(src_dic)
+        for deps_name in deps_list:
             profile.write(deps_name + "\n")
+        for general_name in general_list:
+            profile.write(general_name + "\n")
 
 
 
 def WriteConanfile(src_dic, dst_file, conanfile_py):
-    deps_list = GetDepsName(src_dic)
+    deps_list, general_list = GetDepsName(src_dic)
     with open(dst_file, 'w') as profile:
         profile.write("[requires]\n")
         for deps in deps_list:
             profile.write(deps)
             profile.write("\n")
+        for gen in general_list:
+            profile.write(gen)
+            profile.write("\n")
+
         profile.write("\n\n[generators]\ncmake\n")
 
-    tools.replace_in_file(conanfile_py, "requires = \"\"", "requires = " + str(deps_list))
+    tools.replace_in_file(conanfile_py, "requires = \"\"", "requires = " + str(general_list + deps_list))
 
 def InitConanRemote(proset):
     conan_remote_url = proset["JFrogURL"].split()[0]
@@ -137,11 +150,17 @@ if __name__ == "__main__":
     WriteProfile(proset, "./.profile")
     WriteConanfile(proset, "./.conanfile", "./conanfile.py")
 
-    install_info = proset["Install"] + "/" \
-            + proset["BuildType"] + "-" \
-            + proset["RawLibType"] + "-" \
-            + proset["OS"] + "-" \
-            + proset["Arch"] + "-" \
-            + proset["Compiler"] + "-" \
-            + proset["CompilerVersion"]
+    install_info = None
+    if proset["Type"].lower() == "library":
+        install_info = proset["Install"] + "/" \
+                + proset["BuildType"] + "-" \
+                + proset["RawLibType"] + "-" \
+                + proset["OS"] + "-" \
+                + proset["Arch"] + "-" \
+                + proset["Compiler"] + "-" \
+                + proset["CompilerVersion"]
+    else: # general
+        install_info = proset["Install"] + "/" \
+                + proset["Type"]
+
     print install_info

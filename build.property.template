@@ -6,18 +6,22 @@ Arch: x86_64
 # Conan - Artifactory
 JFrogURL: http://192.168.3.186:8081/artifactory/api/conan/conan-local
 UserName: haoming
-Password: juhaoming1994115
+Password: xxxxxxx
 
 # 依赖的包
 # DepsOnn: [Install]:[BuildType]:[LibType]:[Compiler]-[CompilerVersion]
-DepsOn1:    glog/0.4.0@Vision:Debug:Static:gcc-5.4
+#DepsOn1:    glog/0.4.0@Vision:Debug:Static:gcc-5.4
+#DepsOn2:    yaml_cpp/0.6.2@Vision:Debug:Static:gcc-5.4
+#DepsOn3:    trt/1.0.0@Vision:Debug:Static:gcc-5.4
+
+#General:   [model_name]/[model_version]@[NameSpace]:[SelfTag]
+#General:    front/1.0.0@Model:General
 
 # 本工程的安装目录
-Install: trt/1.0.0@Vision
+# Library or General
+Type: General
+Install: back/1.0.0@Model
 LibType: Static
 BuildType: Debug
 Compiler: gcc
 CompilerVersion: 5.4
-
-
-
