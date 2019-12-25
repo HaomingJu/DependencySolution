@@ -173,3 +173,20 @@ Built target upload
 `make upload` => 将由 `make create` 创建的依赖包上传到JFrogURL指定的地址中.
 
 `make graph` => 绘制出该包的依赖图 `file.html`, 并尝试展示.
+
+## 6. 附加
+
+`build.property.template` 引入关键字 `Type`
+
+`Type` 目前有两个可选项 `Library` 和 `General`. 
+
+`Library` 针对创建C++依赖库时使用; `General` 针对创建一般文件时使用, 诸如Models等.
+
+一般地, 在依赖 `General` 类别时, 配置为:
+
+```
+#General:   [model_name]/[model_version]@[NameSpace]:[SelfTag]
+General1:    crane_back_camera/0.0.4@Model:General
+```
+
+且当 `Type` = `General` 时, 其他关键字诸如 `LibType` `BuildType` `Compiler` `CompilerVersion` 将失效忽略
