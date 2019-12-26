@@ -82,44 +82,18 @@ def WriteProfile(src_dic, dst_file):
     config.add_section("settings")
     config.add_section("options")
 
-    if "library" == UploadType.lower():
-        config.set("settings", "os", src_dic["OS"])
-        config.set("settings", "arch", src_dic["Arch"])
-        config.set("settings", "compiler", src_dic["Compiler"])
-        config.set("settings", "compiler.version", compiler_version)
-        config.set("settings", "compiler.libcxx", "libstdc++")
-        config.set("settings", "build_type", src_dic["BuildType"])
-        config.set("options", "*:shared", src_dic["LibType"])
-    else:
-        config.set("settings", "os", "Linux")
-        config.set("settings", "arch", "x86_64")
-        config.set("settings", "compiler", "gcc")
-        config.set("settings", "compiler.version", "5")
-        config.set("settings", "compiler.libcxx", "libstdc++")
-        config.set("settings", "build_type", "Debug")
-        config.set("options", "*:shared", "False")
+    config.set("settings", "os", src_dic["OS"])
+    config.set("settings", "arch", src_dic["Arch"])
+    config.set("settings", "compiler", "gcc")
+    config.set("settings", "compiler.version", "5")
+    config.set("settings", "compiler.libcxx", "libstdc++")
+    config.set("settings", "build_type", "Debug")
+    config.set("options", "*:shared", "False")
 
 
-    general_dic = GetGeneralDeps(src_dic)
-    for general_name in general_dic.keys():
-        config.set("settings", general_name + ":os", "Linux")
-        config.set("settings", general_name + ":arch", "x86_64")
-        config.set("settings", general_name + ":compiler", "gcc")
-        config.set("settings", general_name + ":compiler.version", "5")
-        config.set("settings", general_name + ":build_type", "Debug")
-        config.set("options", general_name + ":shared", "False")
+    # general_dic = GetGeneralDeps(src_dic)
 
-    deps_dic = GetDeps(src_dic)
-    for lib_name in deps_dic.keys():
-        s = lib_name + ":shared"
-        b = lib_name + ":build_type"
-        version = compiler_version
-        shared = deps_dic[lib_name][1]
-        buildtype = deps_dic[lib_name][2]
-        config.set("settings", b, buildtype)
-        config.set("options", s, shared)
-
-
+    # deps_dic = GetDeps(src_dic)
 
     with open(dst_file, 'w') as profile:
         config.write(profile)
