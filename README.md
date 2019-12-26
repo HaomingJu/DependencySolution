@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/HaomingJu/DependencySolution.svg?branch=master)](https://travis-ci.com/HaomingJu/DependencySolution)
+
 ## 1. 介绍
 
 旨在解决C++库的递归依赖关系.
